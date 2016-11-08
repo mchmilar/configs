@@ -1,0 +1,7 @@
+Clone repository wherever you like
+
+create symbolic links from your home directory pointing to the files in the repository
+EG: If you clone this repository into ~/configs you want links like:
+~/.vimrc -> ~/configs/.vimrc
+
+For vim plugins to install run :PlugInstall from vim
