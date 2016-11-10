@@ -1,10 +1,24 @@
 " .vimrc
 set encoding=utf-8
 
-" vim-plug
+" Vim-Plug Section
 call plug#begin()
+" Plug's go here
+Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdtree'
 call plug#end()
+
+
+""""""""""""""""
+" vim-easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" end vim-easy-align setup
+""""""""""""""""
+
 
 
 syntax on                         " show syntax highlighting
@@ -31,7 +45,6 @@ set nofoldenable                  " disable code folding
 set clipboard=unnamed             " use the system clipboard
 set wildmenu                      " enable bash style tab completion
 set wildmode=list:longest,full
-
 
 " set color scheme
 colorscheme blackboard
