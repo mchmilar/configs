@@ -6,6 +6,10 @@ call plug#begin()
 " Plug's go here
 Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'skalnik/vim-vroom' " run tests/rspec in vim
+Plug 'tpope/vim-endwise' " insert ends after methods, if, else, etc
 call plug#end()
 
 
@@ -49,6 +53,16 @@ set wildmode=list:longest,full
 " set color scheme
 colorscheme blackboard
 
+" mappings
+let mapleader = ","
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+
+" nerdtree settings
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
 " highlight the status bar when in insert mode
 if version >= 700
   au InsertEnter * hi StatusLine ctermfg=235 ctermbg=2
@@ -62,3 +76,7 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+" Open NerdTree when opening vim with no command line arguments
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
