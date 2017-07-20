@@ -1,4 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
+
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -37,13 +38,13 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -57,7 +58,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[38;5;220m\]\u\[\033[38;5;15m\]@\[\033[38;5;220m\]\h\[\033[00m\]:\[\033[38;5;67m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -83,6 +84,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -113,16 +117,45 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH=$PATH:/home/emarchm/dev/tools/sts-bundle/sts-3.8.4.RELEASE
+export PATH=$PATH:/usr/local/go/bin
 
-export JAVA_HOME="/usr/lib/jvm/java-7-oracle/"
-#export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
-export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m"
+# test central
+alias sshtc='ssh root@142.133.134.205'
+alias sshtl='ssh root@142.133.132.188'
+
+# local servers
+alias sshmtl='ssh -i ~/.ssh/id_rsa.ecut.original root@142.133.128.13'
+# powerline initialization
+function _update_ps1() {
+      PS1="$(~/powerline-shell.py $? 2> /dev/null)"
+    }
+
+if [ "$TERM" != "linux" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
+
+export GOPATH=/home/emarchm/dev/code/go
+export PATH=$PATH:$GOPATH/bin
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+bind -x '"\C-p": vim $(fzf);'
+
+# FZF & RipGrep setup. see https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+#export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 
-[ -z "$TMUX" ] && export TERM=xterm-256color
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+alias ntid="nosetests -v --with-id"
 
-alias nhl='cd ~/Work/rails-projects/RubymineProjects/nhl-pool-tracker/'
-alias ntid='nosetests -v --with-id --collect-only'
+
+# Tip of the Day
+echo "Did you know that:"; whatis $(ls /bin | shuf -n 1)
+
+

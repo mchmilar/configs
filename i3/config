@@ -42,6 +42,9 @@ bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 450 -opaci
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# Open Rofi ssh launcher
+bindsym $mod+Shift+d exec rofi -show ssh -lines 3 -eh 2 -width 100 -padding 450 -opacity "85" -bw 0 -bc "$based2" -bg "$based2" -fg "$base1" -hlbg "$based2" -hlfg "#9575cd" -font "System San Francisco Display 18"
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -162,7 +165,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
+    status_command i3status --config ~/.i3status/config
     tray_output primary
     colors {
         background $bg-color
@@ -178,7 +181,10 @@ bar {
 #bindsym $mod+p exec "i3lock -c 000000"
 
 # Fancy pixelated transparent lock
-bindsym $mod+p exec "~/.config/i3/fancy-i3lock.sh"
+#bindsym $mod+p exec "~/.i3/fancy-i3lock.sh"
+
+# Lock with space background
+bindsym $mod+p exec "i3lock -i /home/emarchm/Pictures/extravehicular-activity.png"
 
 # Pulse Audio controls
 # https://faq.i3wm.org/question/3747/enabling-multimedia-keys/?answer=3759#post-id-3759
@@ -263,7 +269,7 @@ bindsym $mod+t exec "synclient TouchpadOff=$((1-$(synclient | grep TouchpadOff |
 # Added by Mark
 
 # Wallpaper
-exec_always feh --bg-scale /home/mark/Pictures/space1.jpg
+exec_always feh --bg-scale /home/emarchm/Pictures/extravehicular-activity.jpg
 
 # Transparency and fade effect
 exec_always compton -f
