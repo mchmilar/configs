@@ -1,0 +1,1 @@
+/home/emarchm/.vim/plugged/gocode/vim/ftplugin/go/gocomplete.vim

@@ -13,6 +13,9 @@ Plug 'tpope/vim-endwise' " insert ends after methods, if, else, etc
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' } " go auto complete
+Plug 'avakhov/vim-yaml'
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 
 
@@ -31,8 +34,8 @@ nmap ga <Plug>(EasyAlign)
 syntax on                         " show syntax highlighting
 filetype plugin indent on
 set autoindent                    " set auto indent
-set ts=2                          " set indent to 2 spaces
-set shiftwidth=2
+set ts=4                          " set indent to 2 spaces
+set shiftwidth=4
 set expandtab                     " use spaces, not tab characters
 set nocompatible                  " don't need to be compatible with old vim
 set number                        " show absolute current line number
@@ -55,7 +58,7 @@ set wildmenu                      " enable bash style tab completion
 set wildmode=list:longest,full
 
 " set color scheme
-colorscheme blackboard
+colorscheme dracula
 
 " mappings
 let mapleader = ","

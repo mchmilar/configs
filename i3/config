@@ -186,6 +186,8 @@ bar {
 # Lock with space background
 bindsym $mod+p exec "i3lock -i /home/emarchm/Pictures/extravehicular-activity.png"
 
+exec_always autolock.sh
+
 # Pulse Audio controls
 # https://faq.i3wm.org/question/3747/enabling-multimedia-keys/?answer=3759#post-id-3759
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
